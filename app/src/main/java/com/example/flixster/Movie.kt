@@ -11,8 +11,10 @@ data class Movie(
     private val posterPath: String,
     val title: String,
     val overviews: String,
+    private val backdropPath: String,
 ){
     val posterImageUrl = "https://image.tmdb.org/t/p/w342/$posterPath"
+    val backdropImageUrl = "https://image.tmdb.org/t/p/w342/$backdropPath"
     companion object{
         // For iterating the JSONArray and return list of movie data classes
         fun fromJsonArray(movieJsonArray: JSONArray): List<Movie>{
@@ -27,11 +29,12 @@ data class Movie(
                         movieJson.getInt("id"),
                         movieJson.getString("poster_path"),
                         movieJson.getString("title"),
-                        movieJson.getString("overview")
+                        movieJson.getString("overview"),
+                        movieJson.getString("backdrop_path"),
                     )
                 )
             }
-            return movies;
+            return movies
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.flixster
 
 import android.content.Context
+import android.content.res.Configuration
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +49,18 @@ class MovieAdapter(private val context: Context, private val movies: MutableList
         fun bind(movie : Movie){
             tvTitle.text = movie.title
             tvOverview.text = movie.overviews
+
             Glide.with(context).load(movie.posterImageUrl).into(ivPoster)
+
+            // for checking the orientation of your screen by accessing resources of landscape
+            // mode of your screen
+            val orientation = context.resources.configuration.orientation
+
+            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+                Glide.with(context).load(movie.posterImageUrl).into(ivPoster)
+            } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                Glide.with(context).load(movie.backdropImageUrl).into(ivPoster)
+            }
         }
     }
 
